@@ -7,8 +7,10 @@ My speculation is that they did not want to get in the discussion of what
 should take precedence between routed args, query string and post body, and 
 roll the policy on the application maker.
 
-If you just want backward compatibility with express 3 or earlier - use this 
-middleware.
+If you just want backward compatibility with express 3 or earlier - you can use 
+this middleware.
+
+But read on - you can do a little more :)
 
 usage
 =====
@@ -38,6 +40,14 @@ objects initiated by other middlewares:
 ```
 app.use( require('request-param')({ order: ["query","body","sessData"] } ) )
 ```
+
+if you want to override the order given to the middleware constructor 
+specifically for one place - give your exceptional order as 3rd parameter
+
+app.post( '/some/:value', function(req,res,next) {
+    req.param('value', 'dff', ["query","sessData","cfg"] ); // works too!
+})
+
 
 
 install
