@@ -16,22 +16,31 @@ usage
 ```
 var app = require('express')()
 
-app.use( reqiore('request-param') )
+app.use( require('request-param')() )
 
 app.post( '/some/:value', function(req,res,next) {
     req.param('value'); // returns :value, or ?value=<value>, or body.value
 })
 ```
 
+If you would like to determine the order in which collections are searched:
+
+```
+app.use( require('request-param')({ order: ["body","params","query"] } ) )
+```
+
+You can name whatever collection is found on the request object, including 
+objects initiated by other middlewares:
+
+```
+app.use( require('request-param')({ order: ["query","body","sessData"] } ) )
+```
+
+
 install
 =======
 
 `npm install request-param`
-
-future
-======
-
-let the user configure what the order of arguments-bag to look in
 
 contribute
 ==========
@@ -43,3 +52,7 @@ contribute
 lisence
 =======
 MIT
+
+last word
+=========
+have fun :)
