@@ -28,6 +28,9 @@ app.post( '/some/:value', function(req,res,next) {
 })
 ```
 
+Determine default order on our own
+----------------------------------
+
 If you would like to determine the order in which collections are searched:
 
 ```
@@ -41,13 +44,17 @@ objects initiated by other middlewares:
 app.use( require('request-param')({ order: ["query","body","sessData"] } ) )
 ```
 
+Inject exceptional order on the fly
+-----------------------------------
+
 if you want to override the order given to the middleware constructor 
 specifically for one place - give your exceptional order as 3rd parameter
 
+```
 app.post( '/some/:value', function(req,res,next) {
     req.param('value', 'dff', ["query","sessData","cfg"] ); // works too!
 })
-
+```
 
 
 install
