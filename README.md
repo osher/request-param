@@ -19,7 +19,10 @@ var app = require('express')()
 app.use( require('request-param')() )
 
 app.post( '/some/:value', function(req,res,next) {
-    req.param('value'); // returns :value, or ?value=<value>, or body.value
+    req.param('value', 'dff'); // returns :value from path
+                               // or ?value=<value> from query
+                               // or body.value from body
+                               // or 'dff' as default value
 })
 ```
 
