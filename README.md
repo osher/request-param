@@ -70,10 +70,10 @@ The benefits of it is - that you don't really care. You can change the protocol
 as you like, and move parameters from path to query, from get to POST - the handler
 will not care - it will just work, for the cost of few CPU cycles spent on checks.
 
-*Do mind the pitfal:* if you always take your parameters from the sasingle one source, 
+*Do mind the pitfal:* if you always take your parameters from the sane single source, 
 for example - always from request.params (path parameters), or from request.query 
 (query-string) there is no real motive to use this abstraction layer, and spend these 
-CPU cycles for needlessly...
+CPU cycles needlessly...
 
 install
 =======
