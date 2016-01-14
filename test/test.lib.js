@@ -62,20 +62,24 @@ module.exports =
             req.param.length.should.eql(3);
         }
       , "using req.param(..) api " : 
-        { "should search first in 'params', then in 'body', then in 'query' and last - return defaultValue" : 
+        { afterEach: 
+          function() {
+              delete _body.field;
+              delete _query.field;
+              delete _params.field;
+          }
+        , "should search by default order(first in 'params', then in 'body', then in 'query' and last - return defaultValue)" : 
           function() {
               order = [];
               req.param("field", dv).should.eql(dv);
               order.should.eql( ["params","query","body"] );
           }
         , "should stop on the first collection that has the searched field" : 
-          function() {
-              
+          function test_stops_on_first() {
               order = [];
               _body.field = "body" + Math.random();
               req.param("field", dv).should.eql(_body.field);
               order.should.eql( ["params","query","body"] );
-
 
               order = [];
               _query.field = "query" + Math.random();
@@ -86,6 +90,14 @@ module.exports =
               _params.field = "params" + Math.random();
               req.param("field", dv).should.eql(_params.field);
               order.should.eql( ["params"] );
+          }
+        , "with injected order" : 
+          { "should search the collections by the injeted order, ending with defaultValue" : 
+            function() {
+                order = [];
+                req.param("no-such-field", dv, ["query", "body", "params"]).should.eql(dv);
+                order.should.eql( ["query", "body", "params"] );
+            }        
           }
         }
       }
@@ -112,17 +124,40 @@ module.exports =
             req.param.length.should.eql(3);
         }
       , "using req.param(..) api " : 
-        { "should search the collections by the order they are given" : 
+        { afterEach: 
+          function() {
+              delete _body.field;
+              delete _query.field;
+              delete _params.field;
+          }
+        , "should search the collections by the order they are given" : 
           function() {
               order = [];
-              req.param("field2", dv).should.eql(dv);
+              req.param("no-such-field", dv).should.eql(dv);
               order.should.eql( ["body", "query", "params"] );
           }
-        , "with injected order" : 
-          { "should search the collections by the injeted order" : 
+        , "should stop on the first collection that has the searched field" : 
+          function test_stops_on_first() {
+              order = [];
+              _params.field = "params" + Math.random();
+              req.param("field", dv).should.eql(_params.field);
+              order.should.eql( ["body", "query", "params"] );
+
+              order = [];
+              _query.field = "query" + Math.random();
+              req.param("field", dv).should.eql(_query.field);
+              order.should.eql( ["body","query"] );
+
+              order = [];
+              _body.field = "body" + Math.random();
+              req.param("field", dv).should.eql(_body.field);
+              order.should.eql( ["body"] );
+          }
+        , "with in-call injected order" : 
+          { "should search the collections by the injeted order, ending with defaultValue" : 
             function() {
                 order = [];
-                req.param("field2", dv, ["query", "body", "params"]).should.eql(dv);
+                req.param("no-such-field", dv, ["query", "body", "params"]).should.eql(dv);
                 order.should.eql( ["query", "body", "params"] );
             }        
           }

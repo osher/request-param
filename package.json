@@ -1,6 +1,6 @@
 {
   "name": "request-param",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "connect/express middleware to enable back the `req.param(name,default)` API depricated in express 4",
   "keywords" : "migrate express3 express4",
   "main": "lib/index.js",
@@ -13,7 +13,10 @@
     "mocha-ui-exports": "~0.2.2"
   },
   "license": "MIT",
-  "repository": "git+https://github.com/osher/request-param.git",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/osher/request-param.git"
+  },
   "publishConfig": {
     "registry": "http://registry.npmjs.org/"
   }
