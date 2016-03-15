@@ -40,7 +40,7 @@ module.exports =
         mw_f.should.be.a.Function;
         mw_f.length.should.eql(1);
     }
-  , "when used without arguments" : 
+  , "using the factory without arguments" : 
     { "should not fail" :
       function() {
           mw = mw_f()
@@ -50,7 +50,7 @@ module.exports =
           mw.should.be.a.Function;
           mw.length.should.eql(3);
       }
-    , "when used with valid arguments" : 
+    , "using the middelware with valid arguments" : 
       { "should not fail and call the done" : 
         function(done) {
             mw(req, null, done);
@@ -102,7 +102,7 @@ module.exports =
         }
       }
     }
-  , "when used with settings object with 'order' attribute as valid array of strings" : 
+  , "using the factory with settings object with 'order' attribute as valid array of strings" : 
     { "should not fail" :
       function() {
           mw = mw_f( {order: ["body", "query", "params"] } )
@@ -112,7 +112,7 @@ module.exports =
           mw.should.be.a.Function;
           mw.length.should.eql(3);
       }
-    , "when used with valid arguments" : 
+    , "using the middleware with valid arguments" : 
       { "should not fail and call the done" : 
         function(done) {
             mw(req, null, done);

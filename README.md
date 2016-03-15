@@ -75,17 +75,54 @@ for example - always from request.params (path parameters), or from request.quer
 (query-string) there is no real motive to use this abstraction layer, and spend these 
 CPU cycles needlessly...
 
+
 install
 =======
 
 `npm install request-param`
 
+
+specifications
+==============
+
+you can produce the current specs by running the [test suite](./blob/master/test/test.lib.js)
+
+```
+  request-param
+    √ should be a middleware factory, names 1 argument - cfg
+    using the factory without arguments
+      √ should not fail
+      √ should return a middleware handler
+      using the middelware with valid arguments
+        √ should not fail and call the done
+        √ should decorate the request with a method 'param', names 3 args: field, default, order
+        using req.param(..) api
+          √ should search by default order(first in 'params', then in 'body', then in 'query' and last - return defaultValue)
+          √ should stop on the first collection that has the searched field
+          with injected order
+            √ should search the collections by the injeted order, ending with defaultValue
+    using the factory with settings object with 'order' attribute as valid array of strings
+      √ should not fail
+      √ should return a middleware handler
+      using the middleware with valid arguments
+        √ should not fail and call the done
+        √ should decorate the request with a method 'param', names 3 args: field, default, order
+        using req.param(..) api
+          √ should search the collections by the order they are given
+          √ should stop on the first collection that has the searched field
+          with in-call injected order
+            √ should search the collections by the injeted order, ending with defaultValue
+
+  15 passing (71 ms)
+
+```
+
 contribute
 ==========
-1. Change code
-2. Add tests
+1. Add specs / tests
+2. Change code
 3. Pass unit-tests
-4. Send PR
+4. Send PR :)
 
 lisence
 =======
