@@ -85,7 +85,7 @@ install
 specifications
 ==============
 
-you can produce the current specs by running the [test suite](./blob/master/test/test.lib.js)
+you can produce the current specs by running the [test suite](./test/test.lib.js)
 
 ```
   request-param
